@@ -48,7 +48,7 @@ Features Name Description :
 
 ## Transformation to tidy data
 
-1. Read all sets of interested data
+Read all sets of interested data
 
 ```r
 allFeatures <- fread("./UCI HAR Dataset/features.txt")
@@ -64,25 +64,25 @@ x_Train <- read.table("./UCI HAR Dataset/train/X_train.txt")
 y_Train <- read.table("./UCI HAR Dataset/train/y_train.txt")
 ```
 
-2. Extract only mean and standard deviation features
+Extract only mean and standard deviation features
  
 ```r
 features_Mean_Std <- allFeatures[grepl("mean\\(\\)|std\\(\\)", Features)]
 x_Test <- x_Test[, features_Mean_Std$Features]
 ```
 
-3. Combine all the data for training and testing
+Combine all the data for training and testing
 ```r
 full_Data <- rbind(train_Data, test_Data)
 ```
 
-4. Reshape the data to generate tidy data set with the average of each variable for each activity and each subject
+Reshape the data to generate tidy data set with the average of each variable for each activity and each subject
 ```r
 arrange_Data <- melt(full_Data, id = main_Names, measure.vars = data_Names)
-tidy_data   = dcast(arrange_Data, Subject + Activity ~ variable, mean)
+tidy_data <- dcast(arrange_Data, Subject + Activity ~ variable, mean)
 ```
 
-5. Appropriate labelling of data set with descriptive variable names
+Appropriate labelling of data set with descriptive variable names
 ```r
 names(tidy_data) <- gsub("^t", "Time", names(tidy_data))
 names(tidy_data) <- gsub("^f", "Freq", names(tidy_data))
