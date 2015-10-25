@@ -50,31 +50,33 @@ X,Y,Z = 3-Axial
 
 1. Read all sets of interested data
 
-> allFeatures <- fread("./UCI HAR Dataset/features.txt")
-> allActivityLabels <- fread("./UCI HAR Dataset/activity_labels.txt")
+- allFeatures <- fread("./UCI HAR Dataset/features.txt")
+- allActivityLabels <- fread("./UCI HAR Dataset/activity_labels.txt")
 
-> subject_Train <- read.table("./UCI HAR Dataset/train/subject_train.txt")
-> subject_Test <-  read.table("./UCI HAR Dataset/test/subject_test.txt")
+- subject_Train <- read.table("./UCI HAR Dataset/train/subject_train.txt")
+- subject_Test <-  read.table("./UCI HAR Dataset/test/subject_test.txt")
 
-> x_Test <- read.table("./UCI HAR Dataset/test/X_test.txt")
-> y_Test <- read.table("./UCI HAR Dataset/test/y_test.txt")
+- x_Test <- read.table("./UCI HAR Dataset/test/X_test.txt")
+- y_Test <- read.table("./UCI HAR Dataset/test/y_test.txt")
 
-> x_Train <- read.table("./UCI HAR Dataset/train/X_train.txt")
-> y_Train <- read.table("./UCI HAR Dataset/train/y_train.txt")
+- x_Train <- read.table("./UCI HAR Dataset/train/X_train.txt")
+- y_Train <- read.table("./UCI HAR Dataset/train/y_train.txt")
 
 2. Extract only mean and standard deviation features 
 
-> features_Mean_Std <- allFeatures[grepl("mean\\(\\)|std\\(\\)", Features)]
-> x_Test <- x_Test[, features_Mean_Std$Features]
+- features_Mean_Std <- allFeatures[grepl("mean\\(\\)|std\\(\\)", Features)]
+- x_Test <- x_Test[, features_Mean_Std$Features]
 
 3. Combine all the data for training and testing
 
-> full_Data <- rbind(train_Data, test_Data)
+- full_Data <- rbind(train_Data, test_Data)
 
-5. Reshape the data to generate tidy data set with the average of each variable for each activity and each subject
+4. Reshape the data to generate tidy data set with the average of each variable for each activity and each subject
 
-> arrange_Data <- melt(full_Data, id = main_Names, measure.vars = data_Names)
-> tidy_data   = dcast(arrange_Data, Subject + Activity ~ variable, mean)
+- arrange_Data <- melt(full_Data, id = main_Names, measure.vars = data_Names)
+- tidy_data   = dcast(arrange_Data, Subject + Activity ~ variable, mean)
+
+5. Appropriate labelling of data set with descriptive variable names
 
 ## Output Data Set
 
