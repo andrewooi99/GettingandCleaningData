@@ -26,55 +26,55 @@ The sets of interested data will be used in this course project from the data se
 8. `activity_labels.txt` containing name on the different types of activities.
 
 Number in `subject_test.txt` and `subject_train.txt` corresponding to `activity_labels.txt`
-1 corresponding to WALKING
-2 corresponding to WALKING_UPSTAIRS
-3 corresponding to WALKING_DOWNSTAIRS
-4 corresponding to SITTING
-5 corresponding to STANDING
-6 corresponding to LAYING
+a. 1 corresponding to WALKING
+b. 2 corresponding to WALKING_UPSTAIRS
+c. 3 corresponding to WALKING_DOWNSTAIRS
+d. 4 corresponding to SITTING
+e. 5 corresponding to STANDING
+f. 6 corresponding to LAYING
 
 Number in `y_train.txt` and `y_test.txt` are integers of 1,2,3 until 30, corresponding to the 30 volunteers for the activity.
 
 Features Name Description :
-t     = Time
-f     = Frequency (Freq as short abbreviation)
-Acc   = Accelerometer
-Gyro  = Gyroscope 
--mean = Mean
--std  = Standard Deviation
-Mag   = Magnitude
-Jerk  = Linear Acceleration
-X,Y,Z = 3-Axial
+i. t     = Time
+ii. f     = Frequency (Freq as short abbreviation)
+iii. Acc   = Accelerometer
+iv. Gyro  = Gyroscope 
+v. mean = Mean
+vi. std  = Standard Deviation
+vii. Mag   = Magnitude
+viii. Jerk  = Linear Acceleration
+ix. X,Y,Z = 3-Axial
 
 ## Transformation to tidy data
 
 1. Read all sets of interested data
 
-- allFeatures <- fread("./UCI HAR Dataset/features.txt")
-- allActivityLabels <- fread("./UCI HAR Dataset/activity_labels.txt")
+allFeatures <- fread("./UCI HAR Dataset/features.txt")
+allActivityLabels <- fread("./UCI HAR Dataset/activity_labels.txt")
 
-- subject_Train <- read.table("./UCI HAR Dataset/train/subject_train.txt")
-- subject_Test <-  read.table("./UCI HAR Dataset/test/subject_test.txt")
+subject_Train <- read.table("./UCI HAR Dataset/train/subject_train.txt")
+subject_Test <-  read.table("./UCI HAR Dataset/test/subject_test.txt")
 
-- x_Test <- read.table("./UCI HAR Dataset/test/X_test.txt")
-- y_Test <- read.table("./UCI HAR Dataset/test/y_test.txt")
+x_Test <- read.table("./UCI HAR Dataset/test/X_test.txt")
+y_Test <- read.table("./UCI HAR Dataset/test/y_test.txt")
 
-- x_Train <- read.table("./UCI HAR Dataset/train/X_train.txt")
-- y_Train <- read.table("./UCI HAR Dataset/train/y_train.txt")
+x_Train <- read.table("./UCI HAR Dataset/train/X_train.txt")
+y_Train <- read.table("./UCI HAR Dataset/train/y_train.txt")
 
 2. Extract only mean and standard deviation features 
 
-- features_Mean_Std <- allFeatures[grepl("mean\\(\\)|std\\(\\)", Features)]
-- x_Test <- x_Test[, features_Mean_Std$Features]
+features_Mean_Std <- allFeatures[grepl("mean\\(\\)|std\\(\\)", Features)]
+x_Test <- x_Test[, features_Mean_Std$Features]
 
 3. Combine all the data for training and testing
 
-- full_Data <- rbind(train_Data, test_Data)
+full_Data <- rbind(train_Data, test_Data)
 
 4. Reshape the data to generate tidy data set with the average of each variable for each activity and each subject
 
-- arrange_Data <- melt(full_Data, id = main_Names, measure.vars = data_Names)
-- tidy_data   = dcast(arrange_Data, Subject + Activity ~ variable, mean)
+arrange_Data <- melt(full_Data, id = main_Names, measure.vars = data_Names)
+tidy_data   = dcast(arrange_Data, Subject + Activity ~ variable, mean)
 
 5. Appropriate labelling of data set with descriptive variable names
 
