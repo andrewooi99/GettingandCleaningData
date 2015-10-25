@@ -78,6 +78,15 @@ X,Y,Z = 3-Axial
 
 5. Appropriate labelling of data set with descriptive variable names
 
+names(tidy_data) <- gsub("^t", "Time", names(tidy_data))
+names(tidy_data) <- gsub("^f", "Freq", names(tidy_data))
+names(tidy_data) <- gsub("Acc", "Accelerometer", names(tidy_data))
+names(tidy_data) <- gsub("Gyro", "Gyroscope", names(tidy_data))
+names(tidy_data) <- gsub("BodyBody", "Body", names(tidy_data))
+names(tidy_data) <- gsub("-mean\\(\\)", "Mean", names(tidy_data))
+names(tidy_data) <- gsub("-std\\(\\)", "SD", names(tidy_data))
+names(tidy_data) <- gsub("Mag", "Magnitude", names(tidy_data))
+
 ## Output Data Set
 
 A space-delimited text file name `tidy_data.txt` will be generated in the working directory
